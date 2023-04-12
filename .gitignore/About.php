@@ -7,6 +7,6 @@
     <title>About Page</title>
 </head>
 <body>
-    <h1>This is about page</h1>
+    <h1>This is about page for user</h1>
 </body>
 </html>
