@@ -7,7 +7,11 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
     <title>QNAHUB Forum</title>
   </head>
   <body>
@@ -25,7 +29,27 @@ while($row=mysqli_fetch_assoc($result))
   $cat_desc=$row['Category_Disc'];
 }
 ?>
-   
+  <?php
+  $showalert=false;
+  $method=$_SERVER['REQUEST_METHOD'];
+  if($method=='POST')
+  {
+    //insert thread into db
+    $th_title=$_POST['title'];
+    $th_desc=$_POST['desc'];
+    $sql="INSERT INTO `threads` ( `thread_title`, `thread_desc`, `thread_catid`, `thread_userid`, `timestamp`) VALUES ( '$th_title', '$th_desc', '$id', '0', current_timestamp());";
+    $result=mysqli_query($conn,$sql);
+    $showalert=true;
+    if($showalert)
+    {
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> Your thread has been added Please wait for community to respond.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    }
+  }
+
+  ?> 
     <div class="container mt-3 p-4">
   
   <div class="mt-4 p-5 bg-dark text-white rounded">
@@ -41,7 +65,7 @@ Any offensive question if found will be removed imediately and the user will be 
 </div>
 <div class="container">
   <h1>Start a Discussion</h1>
-<form>
+<form action="<?php echo  $_SERVER['REQUEST_URI']?>" method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Problem title</label>
     <input type="text" class="form-control" id="title" name="title"aria-describedby="emailHelp">
@@ -51,6 +75,7 @@ Any offensive question if found will be removed imediately and the user will be 
   <label for="exampleFormControlTextarea1" class="form-label">Elaborate your concern </label>
   <textarea class="form-control" id="desc" name="desc"rows="3"></textarea>
 </div>
+
   <button type="submit" class="btn btn-success">Submit</button>
 </form>
 </div>
@@ -91,8 +116,8 @@ while($row2=mysqli_fetch_assoc($result2))
   </div>
 </div>
 
-</div>
-<br>';}
+
+';}
 if($noresult)
  {
   echo'
@@ -108,6 +133,7 @@ if($noresult)
  }
  echo'<br>';
 ?>
+</div>
     
     <?php
     include 'Partials/_footer.php'
