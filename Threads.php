@@ -86,6 +86,7 @@ Any offensive question if found will be removed imediately and the user will be 
 <br>
 <?php
     $cid=$_GET['catid'];
+  
 $sql2="SELECT * FROM `threads` WHERE thread_catid=$cid";
 $result2=mysqli_query($conn,$sql2);
 $noresult=true;
@@ -95,9 +96,7 @@ while($row2=mysqli_fetch_assoc($result2))
  $title=$row2['thread_title'];
  $desc=$row2['thread_desc'];
  $tcatid=$row2['thread_catid'];
- 
- 
- 
+ $thread_id=$row2['thread_id'];
  echo'
 <div class="d-flex">
   
@@ -108,7 +107,7 @@ while($row2=mysqli_fetch_assoc($result2))
     style="width: 60px; height: 60px;"/>
 
   <div>
-    <h5 class="fw-bold "><a  href="thread.php?tcatid='.$tcatid.'" >'.$title.'</a> 
+    <h5 class="fw-bold "><a  href="thread.php?tcatid='.$thread_id.'" >'.$title.'</a> 
       <small class="text-muted">Posted on February 19, 2021</small>
     </h5>
     <p>
