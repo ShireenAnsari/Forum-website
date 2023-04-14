@@ -17,8 +17,9 @@
   <body>
     <?php
     include 'Partials/_header.php';?>
-   
+   <br><br>
     <?php include 'Partials/_dbconnect.php';?>
+
     <?php
     $id=$_GET['catid'];
 $sql="SELECT * FROM `categiries` WHERE Category_Id=$id";
