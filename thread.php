@@ -44,7 +44,7 @@
 
     <?php
    
-   $sql="SELECT * FROM `threads` WHERE thread_catid ='$tid'";
+   $sql="SELECT * FROM `threads` WHERE thread_id ='$tid'";
    $result=mysqli_query($conn,$sql);
    while($row=mysqli_fetch_assoc($result))
    {
