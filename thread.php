@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
     <title>QNAHUB Forums</title>
     
 </head>
@@ -16,10 +20,30 @@
    
     <?php include 'Partials/_dbconnect.php';?>
     
-    
+    <?php
+     $tid=$_GET['tcatid'];
+  $showalert=false;
+  $method=$_SERVER['REQUEST_METHOD'];
+  if($method=='POST')
+  {
+    //insert thread into comment db
+    $comment=$_POST['comment'];
+    $sql="INSERT INTO `comments` ( `comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ( '$comment', '$tid', '0', current_timestamp());";
+    $result=mysqli_query($conn,$sql);
+    $showalert=true;
+    if($showalert)
+    {
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Success!</strong> Your Comment has been added
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    }
+  }
+
+  ?> 
 
     <?php
-    $tid=$_GET['tcatid'];
+   
    $sql="SELECT * FROM `threads` WHERE thread_catid ='$tid'";
    $result=mysqli_query($conn,$sql);
    while($row=mysqli_fetch_assoc($result))
@@ -44,6 +68,7 @@ Any offensive question if found will be removed imediately and the user will be 
     }
     
     ?>
+    
     <div class="container">
   <h1>Post a Comment</h1>
 <form action="<?php echo  $_SERVER['REQUEST_URI']?>" method="post">
@@ -74,9 +99,7 @@ Any offensive question if found will be removed imediately and the user will be 
     position: relative;
     top: -26px;
     left: 40px;
-
-">
-    
+">   
 <p>'.$content.'</p>
 </div>
   '; 
