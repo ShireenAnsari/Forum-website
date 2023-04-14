@@ -17,7 +17,34 @@
     <?php include 'Partials/_dbconnect.php';?>
     
     
-<div class="container my-4">
+
+    <?php
+    $tid=$_GET['tcatid'];
+   $sql="SELECT * FROM `threads` WHERE thread_catid ='$tid'";
+   $result=mysqli_query($conn,$sql);
+   while($row=mysqli_fetch_assoc($result))
+   {
+      $thread_title = $row['thread_title'];
+      $thread_desc = $row['thread_desc'];
+      echo'<div class="container mt-3">
+  <div class="mt-4 p-5 bg-dark text-white rounded">
+    <h3> '.$thread_title.'</h3> 
+    
+    <p>  '.$thread_desc.' </p>
+    <hr>
+    <p>Participate in online forums as you would in constructive, face-to-face discussions. ...
+Postings should continue a conversation and provide avenues for additional continuous dialogue. ...
+Do not post “I agree,” or similar, statements. ...
+Stay on the topic of the thread – do not stray.
+Any offensive question if found will be removed imediately and the user will be Blocked.</p> 
+<p><b>Posted by Shiri</p>
+  </div>
+</div>
+ <br><br>';
+    }
+    
+    ?>
+    <div class="container my-4">
     <h1 >Discussions</h1>
 </div>
     
