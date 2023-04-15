@@ -45,6 +45,8 @@
 <?php
 $sql="SELECT * FROM `categiries`";
 $result=mysqli_query($conn,$sql);
+// $result=mysqli_query($conn,$sql);
+if( $result){
 while($row=mysqli_fetch_assoc($result))
 {
   $cat_id=$row['Category_Id'];
@@ -63,7 +65,11 @@ while($row=mysqli_fetch_assoc($result))
 </div>
     </div>
  ';
-}
+}}
+else{
+  echo'error occured';
+  // failure! check for errors and do something else
+  }
 ?>
  </div></div>
 <!-- category container starts here -->
