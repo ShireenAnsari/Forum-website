@@ -3,7 +3,7 @@
 $servername="localhost";
 $username="root";
 $password="";
-$database="qnahub";
+$database="qna_forum";
 $conn=mysqli_connect($servername,$username,$password,$database);
 
 
